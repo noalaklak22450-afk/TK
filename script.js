@@ -1,4 +1,4 @@
-// Tab Switching logic
+// --- TAB SWITCHING LOGIC ---
 function openTab(evt, tabName) {
     const contents = document.getElementsByClassName("tab-content");
     for (let content of contents) content.classList.remove("active");
@@ -10,38 +10,73 @@ function openTab(evt, tabName) {
     if (evt) evt.currentTarget.classList.add("active");
 }
 
-// Live Roblox Player Count via RoProxy
-async function updatePlayerCount() {
-    const placeId = "91624914286158";
-    const countElement = document.getElementById("hangout-players");
+// --- ACTUAL AUTH SYSTEM (LocalStorage) ---
+function handleAuth() {
+    const title = document.getElementById("auth-title").innerText;
+    const user = document.getElementById("username-input").value;
+    const pass = document.getElementById("password-input").value;
 
-    try {
-        const universeRes = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
-        const universeData = await universeRes.json();
-        const universeId = universeData.universeId;
+    if (!user || !pass) {
+        alert("Please fill in all fields.");
+        return;
+    }
 
-        const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`);
-        const gameData = await gameRes.json();
-        
-        const count = gameData.data[0].playing;
-        countElement.innerText = count.toLocaleString();
-    } catch (error) {
-        console.error("Roblox API unreachable", error);
-        countElement.innerText = "0"; 
+    // Get existing users or create empty list
+    let users = JSON.parse(localStorage.getItem("tk_users") || "[]");
+
+    if (title === "Sign Up") {
+        // SIGN UP LOGIC
+        const userExists = users.find(u => u.username === user);
+        if (userExists) {
+            alert("Username already taken!");
+        } else {
+            users.push({ username: user, password: pass });
+            localStorage.setItem("tk_users", JSON.stringify(users));
+            alert("Account created successfully! You can now log in.");
+            toggleAuth(); // Switch to login view
+        }
+    } else {
+        // LOGIN LOGIC
+        const validUser = users.find(u => u.username === user && u.password === pass);
+        if (validUser) {
+            alert("Welcome back, " + user + "!");
+            openTab(null, 'home'); // Send them home
+        } else {
+            alert("Invalid username or password.");
+        }
     }
 }
 
-// Toggle between Login and Sign Up
 function toggleAuth() {
     const title = document.getElementById("auth-title");
-    title.innerText = (title.innerText === "Login") ? "Sign Up" : "Login";
+    const btnText = document.querySelector("#auth .glass-btn");
+    const toggleLink = document.querySelector(".toggle-text span");
+
+    if (title.innerText === "Login") {
+        title.innerText = "Sign Up";
+        btnText.innerText = "Create Account";
+        toggleLink.innerText = "Login";
+    } else {
+        title.innerText = "Login";
+        btnText.innerText = "Submit";
+        toggleLink.innerText = "Sign Up";
+    }
 }
 
-// Simulated Login
-function mockAuth() {
-    alert("Authentication system is in demo mode. Connection to database pending!");
+// --- ROBLOX LIVE PLAYER COUNT ---
+async function updateRobloxCount() {
+    const placeId = "91624914286158";
+    const display = document.getElementById("hangout-players");
+    try {
+        const universeRes = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+        const universeData = await universeRes.json();
+        const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${universeData.universeId}`);
+        const gameData = await gameRes.json();
+        display.innerText = gameData.data[0].playing.toLocaleString();
+    } catch (e) {
+        display.innerText = "Offline"; 
+    }
 }
 
-// Init
-updatePlayerCount();
-setInterval(updatePlayerCount, 30000); // Refresh every 30s
+updateRobloxCount();
+setInterval(updateRobloxCount, 30000);
