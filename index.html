@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TK Official | #1Roblox Botting Services</title>
+    <link rel="icon" type="image/png" href="image_077021.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-blobs">
+        <div class="blob blue"></div>
+        <div class="blob pink"></div>
+        <div class="blob green"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo">
+            <img src="image_077021.png" alt="TK Logo">
+            <span>TK OFFICIAL</span>
+        </div>
+        <ul class="nav-links">
+            <li class="tab-link active" onclick="openTab(event, 'home')">Home</li>
+            <li class="tab-link" onclick="openTab(event, 'games')">Games</li>
+            <li class="tab-link" onclick="openTab(event, 'discord')">Discord</li>
+            <li class="tab-link" onclick="openTab(event, 'auth')">Login/Sign Up</li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <section id="home" class="tab-content active">
+            <div class="glass-card">
+                <h1>Welcome to TK Official</h1>
+                <p>Experience Roblox botting like never before with our premium community and tools.</p>
+                <div class="status-badge">
+                    <span class="dot"></span> Services: Online
+                </div>
+                <button class="glass-btn" onclick="openTab(event, 'auth')">Get Started</button>
+            </div>
+        </section>
+
+        <section id="games" class="tab-content">
+            <div class="glass-card">
+                <h2>Our Games</h2>
+                <div class="grid">
+                    <a href="https://www.roblox.com/games/91624914286158/game" target="_blank" class="game-link">
+                        <div class="game-item">
+                            <h3>Hangout Follows</h3>
+                            <p class="player-count">
+                                <span class="dot"></span> 
+                                <span id="hangout-players">Loading...</span> players online
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="discord" class="tab-content">
+            <div class="glass-card">
+                <h2>Join the Community</h2>
+                <p>Connect with 25,000 of users on our official Discord server.</p>
+                <a href="https://discord.gg/tkbots" target="_blank" class="glass-btn discord-btn">Join Discord</a>
+            </div>
+        </section>
+
+        <section id="auth" class="tab-content">
+            <div class="glass-card auth-container">
+                <div class="auth-box">
+                    <h2 id="auth-title">Login</h2>
+                    <input type="text" placeholder="Username" class="glass-input">
+                    <input type="password" placeholder="Password" class="glass-input">
+                    <button class="glass-btn" onclick="mockAuth()">Submit</button>
+                    <p onclick="toggleAuth()" class="toggle-text">Don't have an account? <span>Sign Up</span></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
