@@ -3,126 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TK Official | Premium Services</title>
+    <title>TK Official | Premium Hub</title>
     
     <link rel="icon" type="image/png" href="image_077021.png">
 
     <style>
-        /* --- WINDOWS 11 DESIGN VARIABLES --- */
+        /* --- DESIGN CORE --- */
         :root {
-            --mica: rgba(255, 255, 255, 0.1);
-            --mica-thick: rgba(255, 255, 255, 0.18);
-            --border: rgba(255, 255, 255, 0.25);
-            --text: #ffffff;
-            --accent: #3b82f6;
-            --danger: #ff4b4b;
-            --success: #10b981;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-thick: rgba(255, 255, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.2);
+            --text-main: #ffffff;
+            --accent-blue: #007aff;
+            --accent-pink: #ff2d55;
+            --success-green: #34c759;
         }
 
-        /* --- GLOBAL RESET --- */
+        /* --- LAYOUT RESET --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI Variable Display', 'Segoe UI', sans-serif;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
         }
 
         body {
-            background: #0b0f1a;
-            color: var(--text);
+            background: #05070a;
+            color: var(--text-main);
             height: 100vh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- LIQUID BACKGROUND ANIMATION --- */
-        .background-canvas {
+        /* --- LIQUID BACKGROUND --- */
+        .liquid-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: #0b0f1a;
+            background: #05070a;
         }
 
         .liquid-blob {
             position: absolute;
-            filter: blur(90px);
+            filter: blur(100px);
             border-radius: 50%;
-            opacity: 0.45;
-            animation: moveBlobs 25s infinite alternate ease-in-out;
+            opacity: 0.5;
+            animation: flow 22s infinite alternate ease-in-out;
         }
 
-        .blob-1 { width: 600px; height: 600px; background: #3b82f6; top: -10%; left: -10%; }
-        .blob-2 { width: 700px; height: 700px; background: #db2777; bottom: -10%; right: -5%; animation-delay: -5s; }
-        .blob-3 { width: 500px; height: 500px; background: #10b981; bottom: 15%; left: 15%; animation-delay: -10s; }
+        .b1 { width: 650px; height: 650px; background: var(--accent-blue); top: -15%; left: -10%; }
+        .b2 { width: 750px; height: 750px; background: var(--accent-pink); bottom: -15%; right: -5%; animation-delay: -4s; }
+        .b3 { width: 450px; height: 450px; background: var(--success-green); bottom: 10%; left: 20%; animation-delay: -8s; }
 
-        @keyframes moveBlobs {
+        @keyframes flow {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(80px, 50px) scale(1.1); }
+            100% { transform: translate(100px, 60px) scale(1.15); }
         }
 
-        /* --- NAVIGATION (Mica Effect) --- */
-        nav.glass-nav {
+        /* --- NAVIGATION --- */
+        header.top-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 5%;
-            height: 70px;
-            background: var(--mica);
-            backdrop-filter: blur(30px);
+            padding: 0 40px;
+            height: 80px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
         }
 
-        .nav-logo {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-weight: 700;
-            letter-spacing: 1px;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
         }
 
-        .nav-logo img {
-            height: 42px;
+        .brand img {
+            height: 45px;
             border-radius: 50%;
             border: 1px solid var(--border);
         }
 
-        ul.nav-menu {
+        nav.tabs {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 30px;
         }
 
-        .nav-item {
+        .tab-btn {
             cursor: pointer;
-            font-size: 0.95rem;
-            opacity: 0.6;
-            transition: 0.3s;
-            padding: 5px 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.5;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
+            padding: 8px 0;
         }
 
-        .nav-item:hover, .nav-item.active {
+        .tab-btn:hover, .tab-btn.active {
             opacity: 1;
         }
 
-        .nav-item.active::after {
+        .tab-btn.active::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
             background: white;
-            box-shadow: 0 0 10px white;
+            border-radius: 10px;
         }
 
-        /* --- MAIN CONTAINER --- */
-        main.view-container {
+        /* User Badge in Nav */
+        .user-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .user-indicator img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* --- MAIN AREA --- */
+        main.stage {
             flex: 1;
             display: flex;
             justify-content: center;
@@ -130,205 +152,216 @@
             padding: 40px;
         }
 
-        .tab-section {
+        .view {
             display: none;
             width: 100%;
-            max-width: 550px;
-            animation: slideIn 0.5s ease;
+            max-width: 520px;
+            animation: fadeIn 0.6s ease;
         }
 
-        .tab-section.active {
+        .view.active {
             display: block;
         }
 
-        .liquid-card {
-            background: var(--mica);
+        .card {
+            background: var(--glass-thick);
             backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--border);
-            border-radius: 28px;
-            padding: 3rem;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
             text-align: center;
         }
 
-        /* --- BUTTONS & INPUTS --- */
-        .glass-field {
+        /* --- INPUTS & BUTTONS --- */
+        .input-box {
             width: 100%;
-            padding: 15px;
-            margin: 12px 0;
-            border-radius: 12px;
+            padding: 16px;
+            margin: 10px 0;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
             color: white;
             font-size: 1rem;
             outline: none;
             transition: 0.3s;
         }
 
-        .glass-field:focus {
-            background: rgba(255,255,255,0.1);
-            border-color: white;
+        .input-box:focus {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.5);
         }
 
-        .action-btn {
+        .btn-primary {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             margin-top: 15px;
-            border-radius: 14px;
+            border-radius: 18px;
             border: none;
-            background: white;
-            color: #0b0f1a;
+            background: #fff;
+            color: #000;
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        .btn-primary:hover {
+            transform: scale(1.02);
+            filter: brightness(0.9);
         }
 
-        /* --- SPECIAL COMPONENTS --- */
-        .roblox-thumb {
+        /* --- MEDIA ASSETS --- */
+        .game-hero {
             width: 100%;
-            height: 200px;
-            border-radius: 20px;
+            height: 220px;
+            border-radius: 24px;
             object-fit: cover;
             border: 1px solid var(--border);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .discord-thumb {
+        .discord-hero {
             width: 100%;
-            border-radius: 20px;
-            border: 2px solid var(--border);
-            margin-bottom: 20px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
         }
 
-        .profile-img-big {
-            width: 120px;
-            height: 120px;
+        .profile-pfp-large {
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            border: 3px solid white;
-            margin-bottom: 15px;
+            border: 4px solid white;
+            margin-bottom: 20px;
             object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .friend-row {
+        .list-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             background: rgba(255,255,255,0.05);
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 18px;
             border: 1px solid var(--border);
         }
 
-        .status-dot {
-            width: 10px;
-            height: 10px;
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: var(--success);
+            background: var(--success-green);
             display: inline-block;
             margin-right: 8px;
-            box-shadow: 0 0 8px var(--success);
+            box-shadow: 0 0 12px var(--success-green);
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="background-canvas">
-        <div class="liquid-blob blob-1"></div>
-        <div class="liquid-blob blob-2"></div>
-        <div class="liquid-blob blob-3"></div>
+    <div class="liquid-bg">
+        <div class="liquid-blob b1"></div>
+        <div class="liquid-blob b2"></div>
+        <div class="liquid-blob b3"></div>
     </div>
 
-    <nav class="glass-nav">
-        <div class="nav-logo">
+    <header class="top-nav">
+        <div class="brand">
             <img src="image_077021.png" alt="TK Logo">
             <span>TK OFFICIAL</span>
         </div>
-        <ul class="nav-menu">
-            <li class="nav-item active" onclick="navigate(event, 'home')">Home</li>
-            <li class="nav-item" onclick="navigate(event, 'games')">Games</li>
-            <li class="nav-item" onclick="navigate(event, 'discord')">Discord</li>
-            <li class="nav-item" onclick="navigate(event, 'friends')">Friends</li>
-            <li class="nav-item" onclick="navigate(event, 'profile')">Profile</li>
-            <li class="nav-item" onclick="navigate(event, 'auth')">Account</li>
-        </ul>
-    </nav>
+        
+        <nav>
+            <ul class="tabs">
+                <li class="tab-btn active" onclick="switchView(event, 'home')">Home</li>
+                <li class="tab-btn" onclick="switchView(event, 'games')">Games</li>
+                <li class="tab-btn" onclick="switchView(event, 'discord')">Discord</li>
+                <li class="tab-btn" onclick="switchView(event, 'friends')">Friends</li>
+                <li class="tab-btn" onclick="switchView(event, 'profile')">Profile</li>
+                <li class="tab-btn" onclick="switchView(event, 'auth')">Account</li>
+            </ul>
+        </nav>
 
-    <main class="view-container">
+        <div class="user-indicator">
+            <img id="nav-pfp" src="image_077021.png" alt="User">
+            <span id="nav-user">Guest</span>
+        </div>
+    </header>
 
-        <section id="home" class="tab-section active">
-            <div class="liquid-card">
-                <h1>Welcome to the Hub</h1>
-                <p style="margin: 15px 0; opacity: 0.8;">Experience liquid design and live Roblox integration on Windows 11.</p>
-                <button class="action-btn" onclick="navigate(null, 'games')">View Our Games</button>
+    <main class="stage">
+
+        <section id="home" class="view active">
+            <div class="card">
+                <h1 style="font-size: 2.5rem; letter-spacing: -1px;">TK Hub</h1>
+                <p style="margin: 20px 0; line-height: 1.6; opacity: 0.7;">Your central destination for Roblox tools, gaming statistics, and social community management.</p>
+                <button class="btn-primary" onclick="switchView(null, 'auth')">Enter Account</button>
             </div>
         </section>
 
-        <section id="games" class="tab-section">
-            <div class="liquid-card">
-                <h2>Live Statistics</h2>
-                <div id="game-display" style="margin-top:20px;">
+        <section id="games" class="view">
+            <div class="card">
+                <h2>Real-Time Gaming</h2>
+                <div style="margin-top:25px;">
                     <a href="https://www.roblox.com/games/91624914286158/game" target="_blank" style="text-decoration:none; color:white;">
-                        <img id="rbx-thumb" class="roblox-thumb" src="" alt="Thumbnail Loading...">
-                        <h3>Hangout Follows</h3>
-                        <p style="margin-top:10px;"><span class="status-dot"></span> <span id="rbx-count">0</span> Players Active</p>
+                        <img id="game-thumb" class="game-hero" src="" alt="Thumbnail Loading...">
+                        <h3 style="margin-bottom:5px;">Hangout Follows</h3>
+                        <p><span class="indicator-dot"></span> <span id="player-val">0</span> Active Players</p>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="discord" class="tab-section">
-            <div class="liquid-card">
-                <img src="image_0759d8.png" class="discord-thumb" alt="Discord Image">
-                <h2>Official Community</h2>
-                <p style="margin-bottom:20px;">Join 24/7 support and updates.</p>
+        <section id="discord" class="view">
+            <div class="card">
+                <img src="image_0759d8.png" class="discord-hero" alt="Discord Image">
+                <h2>Community Server</h2>
+                <p style="margin: 15px 0; opacity: 0.7;">Join our official server for direct support and exclusive updates.</p>
                 <a href="https://discord.gg/tkbots" target="_blank">
-                    <button class="action-btn" style="background:#5865F2; color:white;">Join Discord</button>
+                    <button class="btn-primary" style="background:#5865F2; color:white;">Join Discord</button>
                 </a>
             </div>
         </section>
 
-        <section id="friends" class="tab-section">
-            <div class="liquid-card">
-                <h2>Friend List</h2>
-                <input type="text" id="friend-input" placeholder="Search Username..." class="glass-field">
-                <button class="action-btn" onclick="processFriend()">Add Friend</button>
-                <div id="friends-box" style="margin-top:20px; text-align:left;">
+        <section id="friends" class="view">
+            <div class="card">
+                <h2>Friend Management</h2>
+                <input type="text" id="add-friend-name" placeholder="Search by Username..." class="input-box">
+                <button class="btn-primary" onclick="handleAddFriend()">Add Connection</button>
+                <div id="friend-list-render" style="margin-top:30px; text-align:left;">
                     </div>
             </div>
         </section>
 
-        <section id="profile" class="tab-section">
-            <div class="liquid-card">
-                <img id="profile-pfp" src="image_077021.png" class="profile-img-big">
-                <h2 id="profile-user">Guest_User</h2>
-                <div style="margin-top:20px;">
-                    <input type="text" id="edit-user" placeholder="Change Username" class="glass-field">
-                    <input type="text" id="edit-pfp" placeholder="New PFP Image URL" class="glass-field">
-                    <button class="action-btn" onclick="saveProfile()">Apply Changes</button>
+        <section id="profile" class="view">
+            <div class="card">
+                <img id="prof-pfp-img" src="image_077021.png" class="profile-pfp-large">
+                <h2 id="prof-user-display">Guest</h2>
+                <div style="margin-top:25px;">
+                    <input type="text" id="edit-user-input" placeholder="New Username" class="input-box">
+                    <input type="text" id="edit-pfp-input" placeholder="PFP Image URL" class="input-box">
+                    <button class="btn-primary" onclick="handleProfileUpdate()">Update Profile</button>
                 </div>
             </div>
         </section>
 
-        <section id="auth" class="tab-section">
-            <div class="liquid-card">
-                <h2 id="auth-header">Login</h2>
-                <div id="auth-form" style="margin-top:15px;">
-                    <input type="text" id="log-user" placeholder="Username" class="glass-field">
-                    <input type="password" id="log-pass" placeholder="Password" class="glass-field">
-                    <button class="action-btn" onclick="executeAuth()">Continue</button>
-                    <p id="toggle-auth" onclick="switchAuthMode()" style="cursor:pointer; font-size:0.85rem; margin-top:20px; opacity:0.7;">
-                        Don't have an account? <span style="text-decoration:underline;">Sign Up</span>
+        <section id="auth" class="view">
+            <div class="card">
+                <h2 id="auth-header-txt">Sign In</h2>
+                <div style="margin-top:20px;">
+                    <input type="text" id="auth-u" placeholder="Username" class="input-box">
+                    <input type="password" id="auth-p" placeholder="Password" class="input-box">
+                    <button class="btn-primary" onclick="handleAuth()">Continue</button>
+                    <p id="toggle-auth-link" onclick="toggleAuthMode()" style="cursor:pointer; font-size:0.85rem; margin-top:25px; opacity:0.6;">
+                        Need an account? <span style="text-decoration:underline;">Register Here</span>
                     </p>
                 </div>
             </div>
@@ -337,154 +370,157 @@
     </main>
 
     <script>
-        // --- NAVIGATION ENGINE ---
-        function navigate(event, targetId) {
-            // Remove active classes
-            document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        // --- NAVIGATION LOGIC ---
+        function switchView(event, target) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 
-            // Set new active
-            document.getElementById(targetId).classList.add('active');
+            document.getElementById(target).classList.add('active');
             if(event) event.currentTarget.classList.add('active');
 
-            // Specialized Loads
-            if(targetId === 'friends') syncFriendsList();
-            if(targetId === 'profile') syncProfilePage();
+            // Data Syncing
+            if(target === 'friends') renderFriends();
+            if(target === 'profile') renderProfile();
+            syncNav();
         }
 
-        // --- AUTHENTICATION ENGINE ---
-        function switchAuthMode() {
-            const header = document.getElementById('auth-header');
-            const toggle = document.getElementById('toggle-auth');
-            if(header.innerText === "Login") {
-                header.innerText = "Sign Up";
-                toggle.innerHTML = "Already have an account? <span style='text-decoration:underline;'>Login</span>";
+        function syncNav() {
+            const current = localStorage.getItem('TK_USER');
+            const db = JSON.parse(localStorage.getItem('TK_DB') || "[]");
+            const userData = db.find(x => x.username === current);
+            
+            if(userData) {
+                document.getElementById('nav-user').innerText = userData.username;
+                document.getElementById('nav-pfp').src = userData.pfp;
             } else {
-                header.innerText = "Login";
-                toggle.innerHTML = "Don't have an account? <span style='text-decoration:underline;'>Sign Up</span>";
+                document.getElementById('nav-user').innerText = "Guest";
+                document.getElementById('nav-pfp').src = "image_077021.png";
             }
         }
 
-        function executeAuth() {
-            const mode = document.getElementById('auth-header').innerText;
-            const u = document.getElementById('log-user').value;
-            const p = document.getElementById('log-pass').value;
+        // --- AUTHENTICATION LOGIC ---
+        function toggleAuthMode() {
+            const h = document.getElementById('auth-header-txt');
+            const l = document.getElementById('toggle-auth-link');
+            if(h.innerText === "Sign In") {
+                h.innerText = "Register";
+                l.innerHTML = "Existing user? <span style='text-decoration:underline;'>Sign In</span>";
+            } else {
+                h.innerText = "Sign In";
+                l.innerHTML = "Need an account? <span style='text-decoration:underline;'>Register Here</span>";
+            }
+        }
 
-            if(!u || !p) return alert("Please fill in both fields.");
+        function handleAuth() {
+            const mode = document.getElementById('auth-header-txt').innerText;
+            const u = document.getElementById('auth-u').value;
+            const p = document.getElementById('auth-p').value;
 
-            let db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+            if(!u || !p) return alert("All fields are required.");
 
-            if(mode === "Sign Up") {
-                if(db.find(x => x.username === u)) return alert("Username already exists!");
+            let db = JSON.parse(localStorage.getItem('TK_DB') || "[]");
+
+            if(mode === "Register") {
+                if(db.find(x => x.username === u)) return alert("User already exists.");
                 db.push({ username: u, password: p, pfp: 'image_077021.png', friends: [] });
-                localStorage.setItem('TK_DATABASE', JSON.stringify(db));
-                alert("Account created successfully! You can now login.");
-                switchAuthMode();
+                localStorage.setItem('TK_DB', JSON.stringify(db));
+                alert("Account created. Please Sign In.");
+                toggleAuthMode();
             } else {
                 const user = db.find(x => x.username === u && x.password === p);
                 if(user) {
-                    localStorage.setItem('TK_SESSION', u);
-                    alert("Logged in as " + u);
-                    navigate(null, 'home');
-                } else {
-                    alert("Invalid credentials.");
-                }
+                    localStorage.setItem('TK_USER', u);
+                    alert("Welcome back!");
+                    switchView(null, 'home');
+                } else alert("Invalid username or password.");
             }
         }
 
-        // --- PROFILE ENGINE ---
-        function syncProfilePage() {
-            const current = localStorage.getItem('TK_SESSION');
+        // --- PROFILE LOGIC ---
+        function renderProfile() {
+            const current = localStorage.getItem('TK_USER');
             if(!current) return;
-            const db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+            const db = JSON.parse(localStorage.getItem('TK_DB') || "[]");
             const data = db.find(x => x.username === current);
             
-            document.getElementById('profile-user').innerText = data.username;
-            document.getElementById('profile-pfp').src = data.pfp;
+            document.getElementById('prof-user-display').innerText = data.username;
+            document.getElementById('prof-pfp-img').src = data.pfp;
         }
 
-        function saveProfile() {
-            const current = localStorage.getItem('TK_SESSION');
-            const newName = document.getElementById('edit-user').value;
-            const newImg = document.getElementById('edit-pfp').value;
-            let db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+        function handleProfileUpdate() {
+            const current = localStorage.getItem('TK_USER');
+            const newN = document.getElementById('edit-user-input').value;
+            const newP = document.getElementById('edit-pfp-input').value;
+            let db = JSON.parse(localStorage.getItem('TK_DB') || "[]");
 
-            if(newName && db.find(x => x.username === newName && x.username !== current)) {
-                return alert("Username taken!");
+            if(newN && db.find(x => x.username === newN && x.username !== current)) return alert("Taken.");
+
+            const idx = db.findIndex(x => x.username === current);
+            if(newN) db[idx].username = newN;
+            if(newP) db[idx].pfp = newP;
+
+            localStorage.setItem('TK_DB', JSON.stringify(db));
+            localStorage.setItem('TK_USER', newN || current);
+            alert("Updated!");
+            renderProfile();
+            syncNav();
+        }
+
+        // --- FRIENDS LOGIC ---
+        function handleAddFriend() {
+            const current = localStorage.getItem('TK_USER');
+            const target = document.getElementById('add-friend-name').value;
+            let db = JSON.parse(localStorage.getItem('TK_DB') || "[]");
+
+            if(!current) return alert("Login first.");
+            if(!db.find(x => x.username === target)) return alert("User not found.");
+
+            const idx = db.findIndex(x => x.username === current);
+            if(!db[idx].friends.includes(target)) {
+                db[idx].friends.push(target);
+                localStorage.setItem('TK_DB', JSON.stringify(db));
+                renderFriends();
+                alert("Added friend.");
             }
-
-            const index = db.findIndex(x => x.username === current);
-            if(newName) db[index].username = newName;
-            if(newImg) db[index].pfp = newImg;
-
-            localStorage.setItem('TK_DATABASE', JSON.stringify(db));
-            localStorage.setItem('TK_SESSION', newName || current);
-            alert("Profile Saved!");
-            syncProfilePage();
         }
 
-        // --- FRIEND ENGINE ---
-        function processFriend() {
-            const current = localStorage.getItem('TK_SESSION');
-            const target = document.getElementById('friend-input').value;
-            let db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
-
-            if(!current) return alert("Login to add friends.");
-            if(!db.find(x => x.username === target)) return alert("User not found in database.");
-
-            const index = db.findIndex(x => x.username === current);
-            if(!db[index].friends.includes(target)) {
-                db[index].friends.push(target);
-                localStorage.setItem('TK_DATABASE', JSON.stringify(db));
-                syncFriendsList();
-                alert("Added " + target);
-            }
-        }
-
-        function syncFriendsList() {
-            const current = localStorage.getItem('TK_SESSION');
-            const db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+        function renderFriends() {
+            const current = localStorage.getItem('TK_USER');
+            const db = JSON.parse(localStorage.getItem('TK_DB') || "[]");
             const user = db.find(x => x.username === current);
-            const container = document.getElementById('friends-box');
+            const list = document.getElementById('friend-list-render');
             
             if(!user || user.friends.length === 0) {
-                container.innerHTML = "<p style='text-align:center; opacity:0.5;'>No friends added yet.</p>";
+                list.innerHTML = "<p style='text-align:center; opacity:0.4;'>No connections found.</p>";
                 return;
             }
 
-            container.innerHTML = user.friends.map(f => `
-                <div class="friend-row">
+            list.innerHTML = user.friends.map(f => `
+                <div class="list-row">
                     <span>${f}</span>
-                    <span style="color:#10b981; font-weight:bold;">Online</span>
+                    <span style="color:var(--success-green); font-size:0.8rem; font-weight:700;">ACTIVE</span>
                 </div>
             `).join('');
         }
 
-        // --- ROBLOX LIVE DATA ENGINE ---
-        async function refreshRoblox() {
-            const placeId = "91624914286158";
+        // --- ROBLOX API FETCH ---
+        async function fetchRoblox() {
+            const pid = "91624914286158";
             try {
-                // Get Universe
-                const r1 = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+                const r1 = await fetch(`https://apis.roproxy.com/universes/v1/places/${pid}/universe`);
                 const d1 = await r1.json();
-                
-                // Get Stats
                 const r2 = await fetch(`https://games.roproxy.com/v1/games?universeIds=${d1.universeId}`);
                 const d2 = await r2.json();
-                document.getElementById('rbx-count').innerText = d2.data[0].playing.toLocaleString();
-
-                // Get Thumbnail
+                document.getElementById('player-val').innerText = d2.data[0].playing.toLocaleString();
                 const r3 = await fetch(`https://thumbnails.roproxy.com/v1/games/icons?universeIds=${d1.universeId}&size=150x150&format=Png`);
                 const d3 = await r3.json();
-                document.getElementById('rbx-thumb').src = d3.data[0].imageUrl;
-            } catch (err) {
-                console.warn("Roblox API Fetch Error");
-            }
+                document.getElementById('game-thumb').src = d3.data[0].imageUrl;
+            } catch (err) { console.log("Fetch Error"); }
         }
 
-        // Initialize
-        refreshRoblox();
-        setInterval(refreshRoblox, 45000); // Refresh every 45s
+        fetchRoblox();
+        setInterval(fetchRoblox, 45000);
+        syncNav();
     </script>
 </body>
 </html>
