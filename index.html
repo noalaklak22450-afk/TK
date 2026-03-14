@@ -7,15 +7,16 @@
     <link rel="icon" type="image/png" href="image_077021.png">
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.12);
-            --border: rgba(255, 255, 255, 0.25);
+            --glass: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.2);
             --text: #ffffff;
+            --accent: #3b82f6;
         }
 
         body {
             margin: 0;
             font-family: 'Segoe UI Variable', 'Segoe UI', sans-serif;
-            background: #0f172a;
+            background: #0b0f1a;
             color: var(--text);
             overflow: hidden;
             height: 100vh;
@@ -23,21 +24,21 @@
             flex-direction: column;
         }
 
-        /* Liquid Glass Background */
+        /* --- Animated Liquid Background --- */
         .background-blobs {
             position: fixed;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: #0f172a;
+            background: #0b0f1a;
         }
 
         .blob {
             position: absolute;
             filter: blur(80px);
             border-radius: 50%;
-            opacity: 0.5;
-            animation: move 20s infinite alternate;
+            opacity: 0.4;
+            animation: move 20s infinite alternate ease-in-out;
         }
 
         .blue { width: 500px; height: 500px; background: #3b82f6; top: -10%; left: -10%; }
@@ -45,17 +46,18 @@
         .green { width: 400px; height: 400px; background: #10b981; bottom: 20%; left: 10%; }
 
         @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 50px); }
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(60px, 40px) scale(1.1); }
         }
 
+        /* --- Navigation --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 5%;
             background: var(--glass);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border);
             z-index: 10;
         }
@@ -63,28 +65,30 @@
         .logo { display: flex; align-items: center; gap: 12px; font-weight: bold; }
         .logo img { height: 40px; border-radius: 50%; }
 
-        .nav-links { list-style: none; display: flex; gap: 25px; cursor: pointer; }
-        .tab-link { opacity: 0.6; transition: 0.3s; }
-        .tab-link.active { opacity: 1; text-shadow: 0 0 10px white; border-bottom: 2px solid white; }
+        .nav-links { list-style: none; display: flex; gap: 20px; cursor: pointer; padding: 0; }
+        .tab-link { opacity: 0.6; transition: 0.3s; font-size: 0.9rem; }
+        .tab-link:hover, .tab-link.active { opacity: 1; border-bottom: 2px solid white; }
 
+        /* --- Main Layout --- */
         .content { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .tab-content { display: none; width: 100%; max-width: 500px; }
-        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease forwards; }
 
         .glass-card {
             background: var(--glass);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(30px);
             border: 1px solid var(--border);
             padding: 2.5rem;
             border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
             text-align: center;
         }
 
+        /* --- Components --- */
         .glass-input {
             width: 100%;
-            padding: 14px;
-            margin: 10px 0;
+            padding: 12px;
+            margin: 8px 0;
             border-radius: 10px;
             border: 1px solid var(--border);
             background: rgba(255,255,255,0.05);
@@ -98,33 +102,23 @@
             border-radius: 12px;
             border: none;
             background: white;
-            color: #0f172a;
-            font-weight: 600;
+            color: #0b0f1a;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
             margin-top: 10px;
         }
 
-        /* Game Thumbnail Styling */
-        .game-card {
-            text-decoration: none;
-            color: white;
-            display: block;
-            transition: 0.3s;
-        }
+        .glass-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(255,255,255,0.3); }
 
-        .game-thumb {
-            width: 100%;
-            height: 150px;
-            border-radius: 15px;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-        }
-
+        /* --- Custom Styles --- */
+        .profile-pic-large { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid white; }
+        .discord-img { width: 100%; border-radius: 15px; margin-bottom: 15px; border: 1px solid var(--border); }
+        .game-thumb { width: 100%; height: 150px; border-radius: 15px; object-fit: cover; margin-bottom: 10px; }
+        .friend-item { background: rgba(255,255,255,0.05); margin: 5px 0; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; }
         .dot { width: 10px; height: 10px; background: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #10b981; margin-right: 5px; }
-        .toggle-text { cursor: pointer; font-size: 0.85rem; margin-top: 15px; opacity: 0.8; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -144,6 +138,8 @@
             <li class="tab-link active" onclick="openTab(event, 'home')">Home</li>
             <li class="tab-link" onclick="openTab(event, 'games')">Games</li>
             <li class="tab-link" onclick="openTab(event, 'discord')">Discord</li>
+            <li class="tab-link" onclick="openTab(event, 'friends')">Friends</li>
+            <li class="tab-link" onclick="openTab(event, 'profile')">Profile</li>
             <li class="tab-link" onclick="openTab(event, 'auth')">Account</li>
         </ul>
     </nav>
@@ -152,16 +148,16 @@
         <section id="home" class="tab-content active">
             <div class="glass-card">
                 <h1>TK Official</h1>
-                <p>Advanced Roblox services. Smooth. Liquid. Fast.</p>
-                <button class="glass-btn" onclick="openTab(event, 'auth')">Get Started</button>
+                <p id="welcome-msg">Experience premium Roblox services.</p>
+                <button class="glass-btn" onclick="openTab(event, 'games')">View Games</button>
             </div>
         </section>
 
         <section id="games" class="tab-content">
             <div class="glass-card">
                 <h2>Our Games</h2>
-                <a href="https://www.roblox.com/games/91624914286158/game" target="_blank" class="game-card">
-                    <img id="game-image" class="game-thumb" src="https://tr.rbxcdn.com/3093278635790666/150/150/Image/Png" alt="Game Thumbnail">
+                <a href="https://www.roblox.com/games/91624914286158/game" target="_blank" style="text-decoration:none; color:white;">
+                    <img id="game-img" class="game-thumb" src="" alt="Thumbnail Loading...">
                     <h3>Hangout Follows</h3>
                     <p><span class="dot"></span> <span id="player-count">0</span> Players</p>
                 </a>
@@ -170,11 +166,28 @@
 
         <section id="discord" class="tab-content">
             <div class="glass-card">
-                <h2>Discord</h2>
-                <p>Join our 24/7 support and community.</p>
-                <a href="https://discord.gg/tkbots" target="_blank" style="text-decoration:none;">
-                    <button class="glass-btn" style="background:#5865F2; color:white;">Join Server</button>
-                </a>
+                <img src="image_0759d8.png" class="discord-img" alt="Server Image">
+                <h2>Discord Server</h2>
+                <a href="https://discord.gg/tkbots" target="_blank"><button class="glass-btn" style="background:#5865F2; color:white;">Join TK Bots</button></a>
+            </div>
+        </section>
+
+        <section id="friends" class="tab-content">
+            <div class="glass-card">
+                <h2>Friends</h2>
+                <input type="text" id="f-name" placeholder="Friend Username" class="glass-input">
+                <button class="glass-btn" onclick="addFriend()">Add Friend</button>
+                <div id="friends-list" style="margin-top:20px; text-align:left;"></div>
+            </div>
+        </section>
+
+        <section id="profile" class="tab-content">
+            <div class="glass-card">
+                <img id="p-pfp" src="image_077021.png" class="profile-pic-large">
+                <h2 id="p-user">Guest</h2>
+                <input type="text" id="new-u" placeholder="New Username" class="glass-input">
+                <input type="text" id="new-p" placeholder="New PFP URL" class="glass-input">
+                <button class="glass-btn" onclick="updateProfile()">Update Profile</button>
             </div>
         </section>
 
@@ -184,73 +197,112 @@
                 <input type="text" id="user" placeholder="Username" class="glass-input">
                 <input type="password" id="pass" placeholder="Password" class="glass-input">
                 <button class="glass-btn" onclick="runAuth()">Submit</button>
-                <p onclick="toggleAuth()" class="toggle-text">Need an account? <span>Sign Up</span></p>
+                <p onclick="toggleAuth()" style="cursor:pointer; font-size:0.8rem; margin-top:10px;">Switch to <span>Sign Up</span></p>
             </div>
         </section>
     </main>
 
     <script>
-        // TAB LOGIC
         function openTab(evt, name) {
-            const tabs = document.querySelectorAll('.tab-content');
-            const links = document.querySelectorAll('.tab-link');
-            tabs.forEach(t => t.classList.remove('active'));
-            links.forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
             document.getElementById(name).classList.add('active');
             if(evt) evt.currentTarget.classList.add('active');
+            if(name === 'friends') renderFriends();
+            if(name === 'profile') loadProfile();
         }
 
-        // AUTH LOGIC
         function toggleAuth() {
-            const title = document.getElementById('auth-title');
-            title.innerText = (title.innerText === "Login") ? "Sign Up" : "Login";
+            const t = document.getElementById('auth-title');
+            t.innerText = (t.innerText === "Login") ? "Sign Up" : "Login";
         }
 
         function runAuth() {
             const mode = document.getElementById('auth-title').innerText;
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
-
-            if(!u || !p) return alert("Fill all fields!");
+            if(!u || !p) return alert("Fill fields!");
 
             let users = JSON.parse(localStorage.getItem('tk_users') || "[]");
-
             if(mode === "Sign Up") {
-                if(users.find(x => x.u === u)) return alert("User exists!");
-                users.push({u, p});
+                if(users.find(x => x.u === u)) return alert("Taken!");
+                users.push({u, p, pfp: 'image_077021.png', friends: []});
                 localStorage.setItem('tk_users', JSON.stringify(users));
-                alert("Account Created! Now please Login.");
-                toggleAuth();
+                alert("Account Created!"); toggleAuth();
             } else {
                 const found = users.find(x => x.u === u && x.p === p);
                 if(found) {
-                    alert("Logged in as " + u);
+                    localStorage.setItem('tk_current', u);
+                    alert("Logged in!");
+                    document.getElementById('welcome-msg').innerText = "Welcome, " + u + "!";
                     openTab(null, 'home');
-                } else {
-                    alert("Wrong details!");
-                }
+                } else alert("Wrong details!");
             }
         }
 
-        // ROBLOX DATA
-        async function fetchRoblox() {
-            const pid = "91624914286158";
-            try {
-                const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${pid}/universe`);
-                const data = await res.json();
-                const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${data.universeId}`);
-                const gameData = await gameRes.json();
-                document.getElementById('player-count').innerText = gameData.data[0].playing;
-                
-                // Fetch Thumbnail
-                const thumbRes = await fetch(`https://thumbnails.roproxy.com/v1/games/icons?universeIds=${data.universeId}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`);
-                const thumbData = await thumbRes.json();
-                document.getElementById('game-image').src = thumbData.data[0].imageUrl;
-            } catch(e) { console.log("API Error"); }
+        function loadProfile() {
+            const curr = localStorage.getItem('tk_current');
+            if(!curr) return;
+            const users = JSON.parse(localStorage.getItem('tk_users') || "[]");
+            const data = users.find(x => x.u === curr);
+            document.getElementById('p-user').innerText = data.u;
+            document.getElementById('p-pfp').src = data.pfp;
         }
 
-        fetchRoblox();
-        setInterval(fetchRoblox, 60000);
+        function updateProfile() {
+            const curr = localStorage.getItem('tk_current');
+            const newU = document.getElementById('new-u').value;
+            const newP = document.getElementById('new-p').value;
+            let users = JSON.parse(localStorage.getItem('tk_users') || "[]");
+            
+            if(newU && users.find(x => x.u === newU && x.u !== curr)) return alert("Username taken!");
+            
+            const idx = users.findIndex(x => x.u === curr);
+            if(newU) users[idx].u = newU;
+            if(newP) users[idx].pfp = newP;
+            
+            localStorage.setItem('tk_users', JSON.stringify(users));
+            localStorage.setItem('tk_current', newU || curr);
+            alert("Updated!"); loadProfile();
+        }
+
+        function addFriend() {
+            const curr = localStorage.getItem('tk_current');
+            const fName = document.getElementById('f-name').value;
+            let users = JSON.parse(localStorage.getItem('tk_users') || "[]");
+            if(!users.find(x => x.u === fName)) return alert("User not found!");
+            
+            const idx = users.findIndex(x => x.u === curr);
+            if(!users[idx].friends) users[idx].friends = [];
+            if(!users[idx].friends.includes(fName)) {
+                users[idx].friends.push(fName);
+                localStorage.setItem('tk_users', JSON.stringify(users));
+                renderFriends();
+            }
+        }
+
+        function renderFriends() {
+            const curr = localStorage.getItem('tk_current');
+            const users = JSON.parse(localStorage.getItem('tk_users') || "[]");
+            const data = users.find(x => x.u === curr);
+            const container = document.getElementById('friends-list');
+            container.innerHTML = (data?.friends || []).map(f => `<div class="friend-item"><span>${f}</span><span style="color:#10b981">Online</span></div>`).join('');
+        }
+
+        async function fetchGame() {
+            const pid = "91624914286158";
+            try {
+                const r = await fetch(`https://apis.roproxy.com/universes/v1/places/${pid}/universe`);
+                const d = await r.json();
+                const g = await fetch(`https://games.roproxy.com/v1/games?universeIds=${d.universeId}`);
+                const gd = await g.json();
+                document.getElementById('player-count').innerText = gd.data[0].playing;
+                const t = await fetch(`https://thumbnails.roproxy.com/v1/games/icons?universeIds=${d.universeId}&size=150x150&format=Png`);
+                const td = await t.json();
+                document.getElementById('game-img').src = td.data[0].imageUrl;
+            } catch(e) {}
+        }
+        fetchGame();
     </script>
 </body>
 </html>
