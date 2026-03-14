@@ -3,223 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TK Official | Live Hub</title>
+    <title>TK Official | Premium Services</title>
+    
     <link rel="icon" type="image/png" href="image_077021.png">
+
     <style>
+        /* --- WINDOWS 11 DESIGN VARIABLES --- */
         :root {
-            --glass: rgba(255, 255, 255, 0.1);
-            --border: rgba(255, 255, 255, 0.2);
+            --mica: rgba(255, 255, 255, 0.1);
+            --mica-thick: rgba(255, 255, 255, 0.18);
+            --border: rgba(255, 255, 255, 0.25);
             --text: #ffffff;
+            --accent: #3b82f6;
+            --danger: #ff4b4b;
+            --success: #10b981;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI Variable Display', 'Segoe UI', sans-serif;
         }
 
         body {
-            margin: 0;
-            font-family: 'Segoe UI Variable', 'Segoe UI', sans-serif;
             background: #0b0f1a;
             color: var(--text);
-            overflow: hidden;
             height: 100vh;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- Liquid Glass Background --- */
-        .background-blobs {
+        /* --- LIQUID BACKGROUND ANIMATION --- */
+        .background-canvas {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
             background: #0b0f1a;
         }
 
-        .blob {
+        .liquid-blob {
             position: absolute;
-            filter: blur(80px);
+            filter: blur(90px);
             border-radius: 50%;
-            opacity: 0.4;
-            animation: move 20s infinite alternate ease-in-out;
+            opacity: 0.45;
+            animation: moveBlobs 25s infinite alternate ease-in-out;
         }
 
-        .blue { width: 500px; height: 500px; background: #3b82f6; top: -10%; left: -10%; }
-        .pink { width: 600px; height: 600px; background: #db2777; bottom: -10%; right: -5%; }
-        .green { width: 400px; height: 400px; background: #10b981; bottom: 20%; left: 10%; }
+        .blob-1 { width: 600px; height: 600px; background: #3b82f6; top: -10%; left: -10%; }
+        .blob-2 { width: 700px; height: 700px; background: #db2777; bottom: -10%; right: -5%; animation-delay: -5s; }
+        .blob-3 { width: 500px; height: 500px; background: #10b981; bottom: 15%; left: 15%; animation-delay: -10s; }
 
-        @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(60px, 40px); }
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(80px, 50px) scale(1.1); }
         }
 
-        /* --- Navigation --- */
-        nav {
+        /* --- NAVIGATION (Mica Effect) --- */
+        nav.glass-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
+            padding: 0 5%;
+            height: 70px;
+            background: var(--mica);
+            backdrop-filter: blur(30px);
             border-bottom: 1px solid var(--border);
-            z-index: 10;
+            z-index: 100;
         }
 
-        .logo { display: flex; align-items: center; gap: 12px; font-weight: bold; }
-        .logo img { height: 40px; border-radius: 50%; }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
 
-        .nav-links { list-style: none; display: flex; gap: 20px; cursor: pointer; padding: 0; }
-        .tab-link { opacity: 0.6; transition: 0.3s; font-size: 0.9rem; }
-        .tab-link.active { opacity: 1; border-bottom: 2px solid white; }
-
-        /* --- Content Layout --- */
-        .content { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .tab-content { display: none; width: 100%; max-width: 500px; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease forwards; }
-
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(30px);
+        .nav-logo img {
+            height: 42px;
+            border-radius: 50%;
             border: 1px solid var(--border);
-            padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        ul.nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            font-size: 0.95rem;
+            opacity: 0.6;
+            transition: 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            opacity: 1;
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: white;
+            box-shadow: 0 0 10px white;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        main.view-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .tab-section {
+            display: none;
+            width: 100%;
+            max-width: 550px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .tab-section.active {
+            display: block;
+        }
+
+        .liquid-card {
+            background: var(--mica);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 3rem;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.5);
             text-align: center;
         }
 
-        /* --- Media Components --- */
-        .game-thumb { 
-            width: 100%; 
-            height: 180px; 
-            border-radius: 18px; 
-            object-fit: cover; 
-            margin-bottom: 15px; 
+        /* --- BUTTONS & INPUTS --- */
+        .glass-field {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 12px;
             border: 1px solid var(--border);
-            background: #1a1e2e; /* Placeholder color while loading */
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .glass-field:focus {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 16px;
+            margin-top: 15px;
+            border-radius: 14px;
+            border: none;
+            background: white;
+            color: #0b0f1a;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+
+        /* --- SPECIAL COMPONENTS --- */
+        .roblox-thumb {
+            width: 100%;
+            height: 200px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
         }
 
         .discord-thumb {
             width: 100%;
             border-radius: 20px;
-            margin-bottom: 20px;
             border: 2px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: 0.3s;
+            margin-bottom: 20px;
         }
 
-        .discord-thumb:hover { transform: scale(1.02); border-color: #5865F2; }
+        .profile-img-big {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
 
-        .glass-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            background: white;
-            color: #0b0f1a;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
+        .friend-row {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
             display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 8px var(--success);
         }
 
-        .dot { width: 10px; height: 10px; background: #10b981; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #10b981; margin-right: 5px; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="background-blobs">
-        <div class="blob blue"></div>
-        <div class="blob pink"></div>
-        <div class="blob green"></div>
+    <div class="background-canvas">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
+        <div class="liquid-blob blob-3"></div>
     </div>
 
-    <nav>
-        <div class="logo">
+    <nav class="glass-nav">
+        <div class="nav-logo">
             <img src="image_077021.png" alt="TK Logo">
             <span>TK OFFICIAL</span>
         </div>
-        <ul class="nav-links">
-            <li class="tab-link active" onclick="openTab(event, 'home')">Home</li>
-            <li class="tab-link" onclick="openTab(event, 'games')">Games</li>
-            <li class="tab-link" onclick="openTab(event, 'discord')">Discord</li>
-            <li class="tab-link" onclick="openTab(event, 'auth')">Account</li>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="navigate(event, 'home')">Home</li>
+            <li class="nav-item" onclick="navigate(event, 'games')">Games</li>
+            <li class="nav-item" onclick="navigate(event, 'discord')">Discord</li>
+            <li class="nav-item" onclick="navigate(event, 'friends')">Friends</li>
+            <li class="nav-item" onclick="navigate(event, 'profile')">Profile</li>
+            <li class="nav-item" onclick="navigate(event, 'auth')">Account</li>
         </ul>
     </nav>
 
-    <main class="content">
-        <section id="home" class="tab-content active">
-            <div class="glass-card">
-                <h1>TK Official</h1>
-                <p>Advanced Roblox services hub.</p>
-                <button class="glass-btn" onclick="openTab(event, 'games')">Explore Games</button>
+    <main class="view-container">
+
+        <section id="home" class="tab-section active">
+            <div class="liquid-card">
+                <h1>Welcome to the Hub</h1>
+                <p style="margin: 15px 0; opacity: 0.8;">Experience liquid design and live Roblox integration on Windows 11.</p>
+                <button class="action-btn" onclick="navigate(null, 'games')">View Our Games</button>
             </div>
         </section>
 
-        <section id="games" class="tab-content">
-            <div class="glass-card">
-                <h2>Featured Game</h2>
-                <a href="https://www.roblox.com/games/91624914286158/game" target="_blank" style="text-decoration:none; color:white;">
-                    <img id="game-thumb-img" class="game-thumb" src="" alt="Loading Thumbnail...">
-                    <h3>Hangout Follows</h3>
-                    <p><span class="dot"></span> <span id="player-count">0</span> Active Players</p>
+        <section id="games" class="tab-section">
+            <div class="liquid-card">
+                <h2>Live Statistics</h2>
+                <div id="game-display" style="margin-top:20px;">
+                    <a href="https://www.roblox.com/games/91624914286158/game" target="_blank" style="text-decoration:none; color:white;">
+                        <img id="rbx-thumb" class="roblox-thumb" src="" alt="Thumbnail Loading...">
+                        <h3>Hangout Follows</h3>
+                        <p style="margin-top:10px;"><span class="status-dot"></span> <span id="rbx-count">0</span> Players Active</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="discord" class="tab-section">
+            <div class="liquid-card">
+                <img src="image_0759d8.png" class="discord-thumb" alt="Discord Image">
+                <h2>Official Community</h2>
+                <p style="margin-bottom:20px;">Join 24/7 support and updates.</p>
+                <a href="https://discord.gg/tkbots" target="_blank">
+                    <button class="action-btn" style="background:#5865F2; color:white;">Join Discord</button>
                 </a>
             </div>
         </section>
 
-        <section id="discord" class="tab-content">
-            <div class="glass-card">
-                <img src="image_0759d8.png" class="discord-thumb" alt="Discord Server Thumbnail">
-                <h2>Join Our Discord</h2>
-                <p>Support, bots, and community updates.</p>
-                <a href="https://discord.gg/tkbots" target="_blank" class="glass-btn" style="background:#5865F2; color:white;">Join Server</a>
+        <section id="friends" class="tab-section">
+            <div class="liquid-card">
+                <h2>Friend List</h2>
+                <input type="text" id="friend-input" placeholder="Search Username..." class="glass-field">
+                <button class="action-btn" onclick="processFriend()">Add Friend</button>
+                <div id="friends-box" style="margin-top:20px; text-align:left;">
+                    </div>
             </div>
         </section>
 
-        <section id="auth" class="tab-content">
-            <div class="glass-card">
-                <h2 id="auth-title">Login</h2>
-                <input type="text" id="user" placeholder="Username" style="width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.1); color:white;">
-                <input type="password" id="pass" placeholder="Password" style="width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.1); color:white;">
-                <button class="glass-btn" onclick="alert('Demo Login Only')">Submit</button>
+        <section id="profile" class="tab-section">
+            <div class="liquid-card">
+                <img id="profile-pfp" src="image_077021.png" class="profile-img-big">
+                <h2 id="profile-user">Guest_User</h2>
+                <div style="margin-top:20px;">
+                    <input type="text" id="edit-user" placeholder="Change Username" class="glass-field">
+                    <input type="text" id="edit-pfp" placeholder="New PFP Image URL" class="glass-field">
+                    <button class="action-btn" onclick="saveProfile()">Apply Changes</button>
+                </div>
             </div>
         </section>
+
+        <section id="auth" class="tab-section">
+            <div class="liquid-card">
+                <h2 id="auth-header">Login</h2>
+                <div id="auth-form" style="margin-top:15px;">
+                    <input type="text" id="log-user" placeholder="Username" class="glass-field">
+                    <input type="password" id="log-pass" placeholder="Password" class="glass-field">
+                    <button class="action-btn" onclick="executeAuth()">Continue</button>
+                    <p id="toggle-auth" onclick="switchAuthMode()" style="cursor:pointer; font-size:0.85rem; margin-top:20px; opacity:0.7;">
+                        Don't have an account? <span style="text-decoration:underline;">Sign Up</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script>
-        // Tab Switcher
-        function openTab(evt, name) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-            document.getElementById(name).classList.add('active');
-            if(evt) evt.currentTarget.classList.add('active');
+        // --- NAVIGATION ENGINE ---
+        function navigate(event, targetId) {
+            // Remove active classes
+            document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+            // Set new active
+            document.getElementById(targetId).classList.add('active');
+            if(event) event.currentTarget.classList.add('active');
+
+            // Specialized Loads
+            if(targetId === 'friends') syncFriendsList();
+            if(targetId === 'profile') syncProfilePage();
         }
 
-        // Live Roblox Fetching
-        async function fetchRobloxData() {
-            const placeId = "91624914286158";
-            try {
-                // Get Universe ID
-                const universeRes = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
-                const universeData = await universeRes.json();
-                const uId = universeData.universeId;
-
-                // Get Player Count
-                const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${uId}`);
-                const gameData = await gameRes.json();
-                document.getElementById('player-count').innerText = gameData.data[0].playing.toLocaleString();
-
-                // Get Game Thumbnail (Icon)
-                const thumbRes = await fetch(`https://thumbnails.roproxy.com/v1/games/icons?universeIds=${uId}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`);
-                const thumbData = await thumbRes.json();
-                document.getElementById('game-thumb-img').src = thumbData.data[0].imageUrl;
-            } catch (e) {
-                console.error("API Error:", e);
-                document.getElementById('player-count').innerText = "Offline";
+        // --- AUTHENTICATION ENGINE ---
+        function switchAuthMode() {
+            const header = document.getElementById('auth-header');
+            const toggle = document.getElementById('toggle-auth');
+            if(header.innerText === "Login") {
+                header.innerText = "Sign Up";
+                toggle.innerHTML = "Already have an account? <span style='text-decoration:underline;'>Login</span>";
+            } else {
+                header.innerText = "Login";
+                toggle.innerHTML = "Don't have an account? <span style='text-decoration:underline;'>Sign Up</span>";
             }
         }
 
-        // Run on load
-        fetchRobloxData();
-        setInterval(fetchRobloxData, 30000); // Update every 30s
+        function executeAuth() {
+            const mode = document.getElementById('auth-header').innerText;
+            const u = document.getElementById('log-user').value;
+            const p = document.getElementById('log-pass').value;
+
+            if(!u || !p) return alert("Please fill in both fields.");
+
+            let db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+
+            if(mode === "Sign Up") {
+                if(db.find(x => x.username === u)) return alert("Username already exists!");
+                db.push({ username: u, password: p, pfp: 'image_077021.png', friends: [] });
+                localStorage.setItem('TK_DATABASE', JSON.stringify(db));
+                alert("Account created successfully! You can now login.");
+                switchAuthMode();
+            } else {
+                const user = db.find(x => x.username === u && x.password === p);
+                if(user) {
+                    localStorage.setItem('TK_SESSION', u);
+                    alert("Logged in as " + u);
+                    navigate(null, 'home');
+                } else {
+                    alert("Invalid credentials.");
+                }
+            }
+        }
+
+        // --- PROFILE ENGINE ---
+        function syncProfilePage() {
+            const current = localStorage.getItem('TK_SESSION');
+            if(!current) return;
+            const db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+            const data = db.find(x => x.username === current);
+            
+            document.getElementById('profile-user').innerText = data.username;
+            document.getElementById('profile-pfp').src = data.pfp;
+        }
+
+        function saveProfile() {
+            const current = localStorage.getItem('TK_SESSION');
+            const newName = document.getElementById('edit-user').value;
+            const newImg = document.getElementById('edit-pfp').value;
+            let db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+
+            if(newName && db.find(x => x.username === newName && x.username !== current)) {
+                return alert("Username taken!");
+            }
+
+            const index = db.findIndex(x => x.username === current);
+            if(newName) db[index].username = newName;
+            if(newImg) db[index].pfp = newImg;
+
+            localStorage.setItem('TK_DATABASE', JSON.stringify(db));
+            localStorage.setItem('TK_SESSION', newName || current);
+            alert("Profile Saved!");
+            syncProfilePage();
+        }
+
+        // --- FRIEND ENGINE ---
+        function processFriend() {
+            const current = localStorage.getItem('TK_SESSION');
+            const target = document.getElementById('friend-input').value;
+            let db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+
+            if(!current) return alert("Login to add friends.");
+            if(!db.find(x => x.username === target)) return alert("User not found in database.");
+
+            const index = db.findIndex(x => x.username === current);
+            if(!db[index].friends.includes(target)) {
+                db[index].friends.push(target);
+                localStorage.setItem('TK_DATABASE', JSON.stringify(db));
+                syncFriendsList();
+                alert("Added " + target);
+            }
+        }
+
+        function syncFriendsList() {
+            const current = localStorage.getItem('TK_SESSION');
+            const db = JSON.parse(localStorage.getItem('TK_DATABASE') || "[]");
+            const user = db.find(x => x.username === current);
+            const container = document.getElementById('friends-box');
+            
+            if(!user || user.friends.length === 0) {
+                container.innerHTML = "<p style='text-align:center; opacity:0.5;'>No friends added yet.</p>";
+                return;
+            }
+
+            container.innerHTML = user.friends.map(f => `
+                <div class="friend-row">
+                    <span>${f}</span>
+                    <span style="color:#10b981; font-weight:bold;">Online</span>
+                </div>
+            `).join('');
+        }
+
+        // --- ROBLOX LIVE DATA ENGINE ---
+        async function refreshRoblox() {
+            const placeId = "91624914286158";
+            try {
+                // Get Universe
+                const r1 = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+                const d1 = await r1.json();
+                
+                // Get Stats
+                const r2 = await fetch(`https://games.roproxy.com/v1/games?universeIds=${d1.universeId}`);
+                const d2 = await r2.json();
+                document.getElementById('rbx-count').innerText = d2.data[0].playing.toLocaleString();
+
+                // Get Thumbnail
+                const r3 = await fetch(`https://thumbnails.roproxy.com/v1/games/icons?universeIds=${d1.universeId}&size=150x150&format=Png`);
+                const d3 = await r3.json();
+                document.getElementById('rbx-thumb').src = d3.data[0].imageUrl;
+            } catch (err) {
+                console.warn("Roblox API Fetch Error");
+            }
+        }
+
+        // Initialize
+        refreshRoblox();
+        setInterval(refreshRoblox, 45000); // Refresh every 45s
     </script>
 </body>
 </html>
